@@ -1,6 +1,7 @@
-import { Slot } from "expo-router";
+import { Slot, Stack } from "expo-router";
 import { ThemeProvider, DarkTheme } from "@react-navigation/native";
 import "../../global.css";
+import { AuthProvider } from "@/providers/AuthProvider";
 const myTheme = {
   ...DarkTheme,
   colors: {
@@ -13,7 +14,12 @@ const myTheme = {
 export default function RootLayout() {
   return (
     <ThemeProvider value={myTheme}>
-      <Slot />
+      <AuthProvider>
+        <Stack>
+          <Stack.Screen name="(protected)" options={{ headerShown: false }} />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        </Stack>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
